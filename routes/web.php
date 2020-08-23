@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main');
 });
+
+Route::resource('projects', 'ProjectController');
+
+Route::resource('logs', 'LogController');
