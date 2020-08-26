@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Log;
+use App\Project;
 use Illuminate\Http\Request;
 
 class LogController extends Controller
@@ -15,7 +16,7 @@ class LogController extends Controller
     public function index()
     {
         $log = Log::where('project_id', 1)->orderBy('created_at', 'desc')->get();
-		return view('logs', compact('log', 'log'));
+        return view('logs', compact('log'));
     }
 
     /**
@@ -25,7 +26,9 @@ class LogController extends Controller
      */
     public function create()
     {
-        //
+        //dd(__method__);
+        $projects = Project::get();
+        return view('logs.edit', compact('projects'));
     }
 
     /**
@@ -36,7 +39,22 @@ class LogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $project = Project::where('id', $request->project_id)->first();
+        $result = Log::create([
+            'project_id' => $request->project_id,
+            'caption' => $request->caption,
+            'slug' => \Str::slug($request->caption),
+            'description' => $request->description,
+        ]);
+
+        if ($result) {
+            return redirect()
+                ->route('logs.show', $project->slug)
+                ->with(['success' => 'Добавлен новый лог.']);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка добавления нового лога.']);
+        }
     }
 
     /**
@@ -47,9 +65,10 @@ class LogController extends Controller
      */
     public function show($id)
     {
-		$log = Log::where('project_id', $id)->orderBy('created_at', 'desc')->get();
+        $project = Project::where('slug', $id)->first();
+		$log = Log::where('project_id', $project->id)->orderBy('created_at', 'desc')->get();
         //dd($log);
-		return view('logs', compact('log', 'log'));
+		return view('logs', compact('log'));
     }
 
     /**
@@ -60,7 +79,14 @@ class LogController extends Controller
      */
     public function edit($id)
     {
-        //
+        $projects = Project::get();
+        $log = Log::where('slug', $id)->first();
+        if ($log) {
+            return view('logs.edit', compact('log', 'projects'));
+        } else {
+            return redirect()
+                ->route('logs.create');
+        }
     }
 
     /**
@@ -72,7 +98,17 @@ class LogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = request()->except(['_token', '_method']);
+        $result = Log::where('slug', $id)->update($data);
+
+        if ($result) {
+            return redirect()
+                ->route('logs.edit', $id)
+                ->with(['success' => 'Лог изменен.']);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка изменения.']);
+        }
     }
 
     /**
@@ -83,6 +119,13 @@ class LogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $result = Log::where('slug', $id)->delete();
+        if ($result) {
+            return redirect('/')
+                ->with(['success' => 'Лог удален.']);
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка удаления лога.']);
+        }
     }
 }

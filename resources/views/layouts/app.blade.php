@@ -3,22 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
 	<meta name="description" content="Личное портфолио Петрова Александра Андреевича">
     <meta name="author" content="Петров Александр (mlokli)">
     <meta name="generator" content="Jekyll v4.1.1">
-	
+
 	<!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-	
+
     <title>{{ config('app.name', 'Laravel') }}</title>
-	
+
 	<link rel="canonical" href="(link)/index">
-	
+
 	<!-- Scripts -->
-    
+
     <!-- Bootstrap core CSS -->
 	<link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 
     <style>
 		.bd-placeholder-img {
@@ -29,19 +30,19 @@
 			-ms-user-select: none;
 			user-select: none;
 		}
-		
+
 		@media (min-width: 768px) {
 			.bd-placeholder-img-lg {
 				font-size: 3.5rem;
 			}
 		}
 	</style>
-	
+
     <!-- Custom styles for this template -->
     <link href="{{ asset('assets/css/album.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/log-list.css') }}" rel="stylesheet">
-	
+
 	<!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
@@ -79,7 +80,7 @@
 			</div>
 		</div>
 	</header>
-	
+
 	<main role="main">
 		<section class="jumbotron text-center">
 			<div class="container">
@@ -87,17 +88,17 @@
 				<p class="lead text-muted" style="font-family:'Press Start 2P',cursive;font-size:10px;">С Front-end все плохо. Мне нравится Back-end.<span style="display: block;">И сдесь вы сможите посмотреть что я сделал :)</span></p>
 			</div>
 		</section>
-		
+        @include('layouts.message')
 		@yield('content')
 	</main>
-	
+
 	<footer class="text-muted">
 		<div class="container">
 			<p class="float-right"><a href="#">Вверх</a></p>
 			<p>Пример альбома &copy; Bootstrap, настроеный под себя.</p>
 		</div>
 	</footer>
-	
+
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
 </body>

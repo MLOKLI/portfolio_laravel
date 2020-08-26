@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Log extends Model
 {
     use SoftDeletes;
+
+    protected $fillable = [
+        'project_id',
+        'caption',
+        'slug',
+        'description',
+    ];
 }

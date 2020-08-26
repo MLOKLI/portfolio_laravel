@@ -40,6 +40,10 @@ body{
     color: var(--dark)
 }
 
+.timeline ul {
+	color: var(--dark)
+}
+
 .timeline p {
 	margin-bottom: 0px;
 }
@@ -121,7 +125,7 @@ body{
     transform: translate(-50%,-50%);
     background-color: #fff;
     z-index: 1;
-    
+
 
 }
 .timeline-image img {
@@ -228,4 +232,13 @@ body{
     width: 60px;
     height: 60px;
 }
+}
+
+.delete_checkbox {
+    position: absolute;
+    float: right;
+    right: 2px;
+    background: #fff;
+    padding: 2px 2px 2px 25px;
+    border-radius: 4px;
 }

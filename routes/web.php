@@ -16,7 +16,25 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('main');
 });
+/*
+Route::get('projects', function () {
+    // Only authenticated users may enter...
+})->middleware('auth');
+*/
+Route::resource('projects', 'ProjectController')->only(['index', 'show']);
+Route::resource('projects', 'ProjectController')->except(['index', 'show'])->middleware('auth');
 
-Route::resource('projects', 'ProjectController');
+Route::resource('logs', 'LogController')->only(['index', 'show']);
+Route::resource('logs', 'LogController')->except(['index', 'show'])->middleware('auth');
+//Route::resource('projects', 'ProjectController');
 
-Route::resource('logs', 'LogController');
+//Route::resource('logs', 'LogController');
+
+Auth::routes([
+    'confirm' => false,
+    'forgot' => false,
+    'login' => true,
+    'register' => false,
+    'reset' => false,
+    'verification' => false,
+]);
